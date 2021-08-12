@@ -1,0 +1,26 @@
+{
+  "name": "gha-clean-workspace",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "@actions/core": "^1.4.0",
+    "@actions/github": "^5.0.0",
+    "@vercel/ncc": "^0.29.0",
+    "glob": "^7.1.7",
+    "rimraf": "^3.0.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Matteo Magni",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quix-it/gha-staging-artifacts-gcs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/quix-it/gha-staging-artifacts-gcs/issues"
+  },
+  "homepage": "https://github.com/quix-it/gha-staging-artifacts-gcs#readme",
+  "description": "GitHub Actions action used for cleaning a given directory when invoked and optionally after the job has completed."
+}
