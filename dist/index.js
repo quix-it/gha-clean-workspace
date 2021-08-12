@@ -9970,8 +9970,6 @@ const cleanup = __nccwpck_require__(2722)
 
 cleanup.clean(core.getInput('path')).then(console.log).catch(console.error)
 
-console.log(github.context)
-
 })();
 
 module.exports = __webpack_exports__;
