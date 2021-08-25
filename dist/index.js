@@ -1,4 +1,4 @@
-/******/ (() => { // webpackBootstrap
+require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
 /***/ 2722:
@@ -8,29 +8,25 @@ const glob = __nccwpck_require__(1957)
 const path = __nccwpck_require__(5622)
 const fs = __nccwpck_require__(5747)
 const rimraf = __nccwpck_require__(4959)
+const util = __nccwpck_require__(1669);
 
+const primraf = util.promisify(rimraf)
+const stat = util.promisify(fs.stat)
+const pglob = util.promisify(glob)
+
+// promisified clean
 module.exports.clean = async function(lpath) {
   return new Promise((resolve, reject) => {
-    fs.stat(lpath, (err, stats) => {
-      if (err)
-        reject(err)
-      else
-        glob(path.join(lpath,'*'), function (gerr, res) {
-          if (gerr) {
-            reject(gerr)
-          }
-          else {
-            Promise.all(
-              res.map((entry) => {
-                rimraf(entry, (rerr) => {
-                  if (rerr) {
-                    reject(rerr)
-                  }
-                })
-              })
-            ).then(resolve(`Path "${lpath}" has been purged`))
-          }
-        })
+    stat(lpath)
+    .catch(reject)
+    .then( () => {
+      pglob(path.join(lpath,'*'), { dot: true })
+      .catch(reject)
+      .then( files => {
+        Promise.all(files.map(entry => primraf(entry)))
+        .catch(reject)
+        .then(() => { resolve(`Path "${lpath}" has been purged`) })
+      })
     })
   })
 }
@@ -9975,3 +9971,4 @@ cleanup.clean(core.getInput('path')).then(console.log).catch(console.error)
 module.exports = __webpack_exports__;
 /******/ })()
 ;
+//# sourceMappingURL=index.js.map
