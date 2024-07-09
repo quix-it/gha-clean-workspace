@@ -1,17 +1,11 @@
 name: Workspace cleanup
-description: Action used for cleaning a given directory when invoked and optionally after the job has completed
+description: Action used for cleaning a given directory when invoked
 
-inputs:
-  path:
-    description: Path to purge, defaults to current directory
-    required: false
-    default: .
-  post:
-    description: Whether or not to clean the path also after the job has completed
-    required: false
-    default: true
-  
 runs:
-  using: 'node16'
-  main: 'dist/index.js'
-  post: 'dist/post.js'
+  using: "composite"
+  steps:
+    - name: Workspace cleanup
+      shell: sh
+      run: |
+          rm -rf ./* || true
+          rm -rf ./.??* || true
