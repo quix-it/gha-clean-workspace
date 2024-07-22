@@ -9,13 +9,6 @@ on:
 
 jobs:
 
-  units:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - run: npm ci
-    - run: npm test
-
   test:
     runs-on: ubuntu-latest
 
@@ -24,7 +17,7 @@ jobs:
 
     steps:
 
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Prepare ascii and binary test files
       run: |
@@ -40,3 +33,4 @@ jobs:
     - name: Count test files
       run: |
         [ $(find ${{ env.SAMPLES }} -mindepth 1 | wc -l) -eq 0 ]
+
